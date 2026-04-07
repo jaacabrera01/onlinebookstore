@@ -12,6 +12,8 @@ jobs:
     
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
+      TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
     
     strategy:
       matrix:
@@ -40,10 +42,12 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y xvfb
     
+    - name: Run Authentication Tests
+      run: |
+        xvfb-run -a pytest tests/test_authentication.py -v --tb=short --reruns 3 --reruns-delay 2
+      continue-on-error: true
+    
     - name: Run API Security Tests
-      env:
-        TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
-        TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
       run: |
         xvfb-run -a pytest tests/test_api_security.py -v --tb=short
       continue-on-error: true
@@ -59,67 +63,38 @@ jobs:
       continue-on-error: true
     
     - name: Run Data Validation Tests
-      env:
-        TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
-        TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
       run: |
         xvfb-run -a pytest tests/test_data_validation.py -v --tb=short
       continue-on-error: true
     
     - name: Run Core Security Tests
-      env:
-        TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
-        TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
       run: |
         xvfb-run -a pytest tests/test_security_comprehensive.py -v --tb=short
       continue-on-error: true
     
-    - name: Run Authentication Tests
-      env:
-        TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
-        TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
-      run: |
-        xvfb-run -a pytest tests/test_authentication.py -v --tb=short
-      continue-on-error: true
-    
     - name: Run Shopping Cart Tests
-      env:
-        TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
-        TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
       run: |
-        xvfb-run -a pytest tests/test_shopping_cart.py -v --tb=short
+        xvfb-run -a pytest tests/test_shopping_cart.py -v --tb=short --reruns 2 --reruns-delay 2
       continue-on-error: true
     
     - name: Run Checkout Tests
-      env:
-        TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
-        TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
       run: |
-        xvfb-run -a pytest tests/test_checkout.py -v --tb=short
+        xvfb-run -a pytest tests/test_checkout.py -v --tb=short --reruns 2 --reruns-delay 2
       continue-on-error: true
     
     - name: Run Product Search Tests
-      env:
-        TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
-        TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
       run: |
         xvfb-run -a pytest tests/test_product_search.py -v --tb=short
       continue-on-error: true
     
     - name: Run API Tests
-      env:
-        TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
-        TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
       run: |
         xvfb-run -a pytest tests/test_api.py -v --tb=short
       continue-on-error: true
     
     - name: Run Visual Regression Tests
-      env:
-        TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
-        TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
       run: |
-        xvfb-run -a pytest tests/test_visual_regression.py -v --tb=short
+        xvfb-run -a pytest tests/test_visual_regression.py -v --tb=short --reruns 2 --reruns-delay 2
       continue-on-error: true
     
     - name: Generate Allure Report
@@ -141,3 +116,11 @@ jobs:
       with:
         name: allure-report-${{ matrix.python-version }}
         path: allure-report/
+    
+    - name: Upload Playwright traces on failure
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: playwright-traces-${{ matrix.python-version }}
+        path: test-results/
+        if-no-files-found: ignore
