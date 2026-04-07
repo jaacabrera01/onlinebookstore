@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     
     # Application
     BASE_URL: str = "https://bookcart.azurewebsites.net/"
-    HEADLESS: bool = False
+    HEADLESS: bool = True
     SLOW_MO: int = 500
     
     # Chrome 
