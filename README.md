@@ -1,3 +1,4 @@
+#Project URL: https://bookcart.azurewebsites.net
 # BookCart Automation Testing Framework
 
 A comprehensive test automation framework for the BookCart e-commerce application using Playwright and Python. This framework covers critical paths including user authentication, product search, shopping cart management, and checkout processes, with support for cross-browser testing, API testing, and visual regression testing.
