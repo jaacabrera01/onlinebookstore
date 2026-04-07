@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>BookCart Automation Test Guide</title>
+    <style>
+        body {
+            font-family: 'Calibri', 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        
+        .title-page {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 30px;
+            background-color: white;
+            border: 3px solid #2563eb;
+        }
+        
+        h1 {
+            color: #2563eb;
+            font-size: 28px;
+            margin: 10px 0;
+        }
+        
+        h2 {
+            color: #1e40af;
+            font-size: 20px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #dbeafe;
+        }
+        
+        h3 {
+            color: #1e40af;
+            font-size: 16px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .page-break {
+            page-break-after: always;
+            margin: 40px 0;
+            border-top: 3px solid #ddd;
+            padding-top: 20px;
+        }
+        
+        .section-header {
+            background-color: #dbeafe;
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 4px solid #2563eb;
+        }
+        
+        .folder {
+            background-color: #f0f9ff;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #0284c7;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .file {
+            background-color: #f8f8f0;
+            padding: 12px;
+            margin: 10px 0;
+            border-left: 4px solid #666;
+            font-family: 'Courier New', monospace;
+        }
+        
+        ul {
+            margin: 10px 0;
+            padding-left: 30px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        .emoji {
+            margin-right: 5px;
+        }
+        
+        .code {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        
+        .highlight {
+            background-color: #fef3c7;
+            padding: 2px 5px;
+        }
+        
+        .success {
+            color: #16a34a;
+            font-weight: bold;
+        }
+        
+        .warning {
+            color: #ea580c;
+            font-weight: bold;
+        }
+        
+        .error {
+            color: #dc2626;
+            font-weight: bold;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        table th {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .box {
+            border: 2px solid #2563eb;
+            padding: 15px;
+            margin: 15px 0;
+            background-color: #f0f9ff;
+        }
+        
+        .important {
+            background-color: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .summary-box {
+            background-color: #dbeafe;
+            border: 2px solid #0284c7;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .toc {
+            background-color: #f0f9ff;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid #0284c7;
+        }
+        
+        .toc a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+        
+        .step {
+            background-color: #f9fafb;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #6b7280;
+        }
+    </style>
+</head>
+<body>
+
+<!-- TITLE PAGE -->
+<div class="title-page">
+    <h1>📚 BookCart Automation Test Guide</h1>
+    <h3>A Step-By-Step Guide for Non-Technical Users</h3>
+    <hr>
+    <p><strong>Document Version:</strong> 1.0</p>
+    <p><strong>Date:</strong> April 7, 2026</p>
+    <p><strong>Purpose:</strong> Complete guide to setting up and running BookCart tests</p>
+</div>
+
+<div class="page-break"></div>
+
+<!-- TABLE OF CONTENTS -->
+<h2>📋 Table of Contents</h2>
+<div class="toc">
+    <ol style="font-size: 16px; line-height: 2;">
+        <li><strong>What Needs to Be Setup First?</strong> (Initial Setup)</li>
+        <li><strong>Installation Checklist</strong> (Verify Everything)</li>
+        <li><strong>What is This?</strong> (Overview)</li>
+        <li><strong>Before You Start</strong> (Prerequisites)</li>
+        <li><strong>Project Folder Structure</strong> (What Each Folder/File Does)</li>
+        <li><strong>Understanding the Problem</strong></li>
+        <li><strong>Step-By-Step Solution</strong></li>
+        <li><strong>How to Run Tests</strong></li>
+        <li><strong>What Each Result Means</strong></li>
+        <li><strong>Troubleshooting</strong></li>
+    </ol>
+</div>
+
+<div class="page-break"></div>
+
+<!-- SECTION 0A: INITIAL SETUP -->
+<h2>⚙️ Section 0: What Needs to Be Setup First?</h2>
+
+<p>Before you can run any tests, a few things need to be ready. Think of it like preparing before a road trip:</p>
+
+<div class="summary-box">
+    <strong>Checklist of Things That Should Already Be Done:</strong>
+    <ul>
+        <li>☐ Python programming runtime installed on your computer</li>
+        <li>☐ Testing software (pytest and dependencies) installed</li>
+        <li>☐ Web browser automation tool (Playwright) installed</li>
+        <li>☐ Project files downloaded to your computer</li>
+        <li>☐ Virtual environment created (.venv folder)</li>
+    </ul>
+</div>
+
+<div class="important">
+<strong>🎯 Good News:</strong> If you already have the project folder and someone set it up for you, these are probably already done! We'll verify this in the next section.
+</div>
+
+<h3>What These Things Do:</h3>
+
+<div class="box">
+<strong>Python Runtime</strong><br>
+This is the core engine that runs Python code. Think of it as the "engine" of the car.<br>
+Status: Should be installed on your computer<br>
+Check command: <code>python --version</code>
+</div>
+
+<div class="box">
+<strong>Virtual Environment (.venv folder)</strong><br>
+This is a special folder that contains all the testing tools, isolated from other Python stuff on your computer.<br>
+Think of it as a "toolbox" specific to this project.<br>
+Status: Should already exist in your project folder<br>
+Location: /Users/jaacabrera/Documents/Python Scripts/Online Bookstore/.venv/
+</div>
+
+<div class="box">
+<strong>Project Dependencies (requirements.txt)</strong><br>
+These are all the special tools the tests need:<br>
+<ul>
+    <li><strong>pytest</strong> - The test runner (executes tests)</li>
+    <li><strong>pytest-asyncio</strong> - Allows tests to run fast concurrently</li>
+    <li><strong>playwright</strong> - Controls the web browser automatically</li>
+    <li><strong>requests</strong> - Communicates with the website API</li>
+    <li><strong>allure-pytest</strong> - Creates nice test reports</li>
+    <li><strong>pydantic</strong> - Validates configuration settings</li>
+</ul>
+Status: Should be installed in the .venv folder<br>
+File: /Users/jaacabrera/Documents/Python Scripts/Online Bookstore/requirements.txt
+</div>
+
+<div class="page-break"></div>
+
+<!-- SECTION 0B: INSTALLATION CHECKLIST -->
+<h2>✅ Section 1: Installation Checklist (Verify Everything is Ready)</h2>
+
+<div class="important">
+<strong>NOTE:</strong> If someone already set this up for you, most of these checks will pass. You're just verifying that everything is in place.
+</div>
+
+<h3>Check 1: Verify Python is Installed</h3>
+
+<div class="step">
+<strong>What to do:</strong>
+<ol>
+    <li>Open Terminal (see Section 4 below for how)</li>
+    <li>Type: <code>python --version</code></li>
+    <li>Press Enter</li>
+</ol>
+
+<strong>Expected result:</strong> Should show something like:
+<div class="code">Python 3.10.0</div>
+or higher version number<br><br>
+
+<strong>If you see this:</strong> ✅ PYTHON IS INSTALLED<br>
+
+<strong>If you see "command not found":</strong> ❌ PYTHON NOT INSTALLED
+<ul>
+    <li>Ask your IT team to install Python 3.9+</li>
+    <li>Or visit python.org and download it</li>
+</ul>
+</div>
+
+<h3>Check 2: Verify Project Folder Exists</h3>
+
+<div class="step">
+<strong>What to do:</strong>
+<ol>
+    <li>Open File Explorer (Windows) or Finder (Mac)</li>
+    <li>Navigate to: Users → jaacabrera → Documents → Python Scripts → Online Bookstore</li>
+    <li>Look for a folder called "<code>.venv</code>" (it might be hidden)</li>
+</ol>
+
+<strong>Expected result:</strong> Should see folders like:
+<ul>
+    <li>📁 .venv ← This is CRITICAL</li>
+    <li>📁 pages</li>
+    <li>📁 tests</li>
+    <li>📁 utils</li>
+    <li>📄 config.py</li>
+    <li>📄 conftest.py</li>
+    <li>📄 requirements.txt</li>
+    <li>📄 pytest.ini</li>
+</ul>
+
+<strong>If you see .venv folder:</strong> ✅ VIRTUAL ENVIRONMENT EXISTS<br>
+
+<strong>If you DON'T see .venv:</strong> ❌ NEEDS SETUP
+<ul>
+    <li>Ask your IT team or developer to create it</li>
+    <li>OR run: <code>python -m venv .venv</code> (in the project folder)</li>
+    <li>Then run: <code>source .venv/bin/activate</code></li>
+    <li>Then run: <code>pip install -r requirements.txt</code></li>
+</ul>
+</div>
+
+<h3>Check 3: Verify Testing Tools are Installed</h3>
+
+<div class="step">
+<strong>What to do:</strong>
+<ol>
+    <li>Open Terminal</li>
+    <li>Navigate to project folder: <code>cd "/Users/jaacabrera/Documents/Python Scripts/Online Bookstore"</code></li>
+    <li>Activate the environment: <code>source .venv/bin/activate</code></li>
+    <li>Type: <code>pytest --version</code></li>
+    <li>Press Enter</li>
+</ol>
+
+<strong>Expected result:</strong> Should show:
+<div class="code">pytest 7.0.0</div>
+or higher version number<br><br>
+
+<strong>If you see the version number:</strong> ✅ PYTEST IS INSTALLED<br>
+
+<strong>If you see "command not found":</strong> ❌ DEPENDENCIES NOT INSTALLED
+<ul>
+    <li>While still in Terminal, run: <code>pip install -r requirements.txt</code></li>
+    <li>This will install all needed tools</li>
+    <li>Takes 3-5 minutes</li>
+    <li>Then try <code>pytest --version</code> again</li>
+</ul>
+</div>
+
+<h3>Check 4: Verify Playwright is Installed</h3>
+
+<div class="step">
+<strong>What to do:</strong>
+<ol>
+    <li>In Terminal (with environment activated), type: <code>playwright --version</code></li>
+    <li>Press Enter</li>
+</ol>
+
+<strong>Expected result:</strong> Should show:
+<div class="code">Version 1.40.0</div>
+or similar<br><br>
+
+<strong>If you see the version number:</strong> ✅ PLAYWRIGHT IS INSTALLED<br>
+
+<strong>If you see "command not found":</strong> It was probably installed in Check 3
+<ul>
+    <li>Verify by running: <code>pip install playwright</code></li>
+    <li>Then you might need to install browsers: <code>playwright install</code></li>
+</ul>
+</div>
+
+<h3>Check 5: Quick Test Run (Verify Everything Works Together)</h3>
+
+<div class="step">
+<strong>What to do:</strong>
+<ol>
+    <li>Terminal should be in the project folder with environment activated</li>
+    <li>Type: <code>pytest tests/test_authentication.py::TestUserLogin::test_login_page_layout -v</code></li>
+    <li>Press Enter</li>
+</ol>
+
+<strong>This runs a SIMPLE test that just checks if the login page loads.</strong><br><br>
+
+<strong>Expected result:</strong> Should show:
+<div class="code">PASSED</div>
+<br>
+
+<strong>If test PASSED:</strong> ✅ EVERYTHING IS SETUP CORRECTLY!<br>
+
+<strong>If test FAILED:</strong> Something isn't quite right
+<ul>
+    <li>Check that you completed all 4 checks above</li>
+    <li>Make sure the website https://bookcart.azurewebsites.net/ is accessible</li>
+    <li>Contact your IT team if issues persist</li>
+</ul>
+</div>
+
+<div class="summary-box">
+<strong>🎉 If All Checks Pass:</strong><br>
+You're ready to go! Your system is properly set up.<br>
+Skip ahead to Section 3 (Project Folder Structure)
+</div>
+
+<div class="page-break"></div>
+
+<p>Think of the project folder like a house. Let me explain each "room":</p>
+
+<div class="folder">
+<strong>📁 Your Main Project Folder:</strong> Online Bookstore<br>
+This is your main folder with everything inside
+</div>
+
+<h3>Important Folders Explained</h3>
+
+<div class="folder">
+<strong>📁 tests/</strong><br><br>
+<strong>Purpose:</strong> Contains all the TEST FILES<br><br>
+<strong>Think of it as:</strong> A checklist of things to verify work correctly<br><br>
+<strong>Files inside:</strong>
+<ul>
+    <li>test_authentication.py → Tests login and registration features</li>
+    <li>test_shopping_cart.py → Tests shopping cart functions</li>
+    <li>test_checkout.py → Tests checkout process</li>
+    <li>test_product_search.py → Tests searching for books</li>
+    <li>test_api.py → Tests the backend API</li>
+    <li>test_visual_regression.py → Tests how pages look visually</li>
+</ul>
+<strong>Why it matters:</strong> These are the automated tests that check if everything works!
+</div>
+
+<div class="folder">
+<strong>📁 pages/</strong><br><br>
+<strong>Purpose:</strong> Contains INSTRUCTIONS for interacting with the website<br><br>
+<strong>Think of it as:</strong> A guide book for the test robot on how to use the website<br><br>
+<strong>Files inside:</strong>
+<ul>
+    <li>home_page.py → Instructions for using the home page</li>
+    <li>login_page.py → Instructions for the login page</li>
+    <li>register_page.py → Instructions for registration</li>
+    <li>product_detail_page.py → Instructions for product pages</li>
+    <li>checkout_page.py → Instructions for checkout</li>
+    <li>cart_page.py → Instructions for shopping cart</li>
+    <li>__init__.py → Basic instructions all pages use</li>
+</ul>
+<strong>Why it matters:</strong> These tell the tests where to click and what to do
+</div>
+
+<div class="folder">
+<strong>📁 utils/</strong><br><br>
+<strong>Purpose:</strong> Contains HELPER TOOLS<br><br>
+<strong>Think of it as:</strong> A toolbox with useful functions<br><br>
+<strong>Files inside:</strong>
+<ul>
+    <li>api_client.py → Tool for communicating with the website database</li>
+    <li>visual_regression.py → Tool for comparing page screenshots</li>
+</ul>
+<strong>Why it matters:</strong> These help tests do their jobs more efficiently
+</div>
+
+<div class="folder">
+<strong>📁 .venv/</strong><br><br>
+<strong>Purpose:</strong> Contains all the TESTING SOFTWARE<br><br>
+<strong>Think of it as:</strong> A special folder with all the tools needed to run tests<br><br>
+<strong>Why it matters:</strong> You need this to run tests (we activate it with a command)
+</div>
+
+<div class="folder">
+<strong>📁 test-results/</strong><br><br>
+<strong>Purpose:</strong> Stores SCREENSHOTS and test evidence<br><br>
+<strong>Think of it as:</strong> A folder where test failures get photographed as proof<br><br>
+<strong>Why it matters:</strong> When tests fail, screenshots help identify problems
+</div>
+
+<div class="folder">
+<strong>📁 allure-results/</strong><br><br>
+<strong>Purpose:</strong> Contains TEST RESULT DATA<br><br>
+<strong>Think of it as:</strong> A report on test results in a format that makes reports<br><br>
+<strong>Why it matters:</strong> Used to generate nice test report documents
+</div>
+
+<div class="page-break"></div>
+
+<h3>Important Files Explained</h3>
+
+<div class="file">
+<strong>📄 config.py</strong><br><br>
+<strong>Purpose:</strong> SETTINGS FILE<br><br>
+<strong>Contains:</strong> All the configuration for tests
+<ul>
+    <li>Website URL: https://bookcart.azurewebsites.net/</li>
+    <li>Browser type: Chrome</li>
+    <li>Timeouts: How long to wait before giving up</li>
+    <li>Test usernames and passwords</li>
+</ul>
+<strong>Think of it as:</strong> Instructions for how the tests should behave<br><br>
+<strong>When to change it:</strong> Almost never - only if website URL changes
+</div>
+
+<div class="file">
+<strong>📄 conftest.py</strong><br><br>
+<strong>Purpose:</strong> SETUP AND TEARDOWN<br><br>
+<strong>Think of it as:</strong> Instructions for what to do before and after each test<br><br>
+<strong>Contains:</strong>
+<ul>
+    <li>How to start the web browser</li>
+    <li>How to create test pages</li>
+    <li>How to clean up after tests finish</li>
+</ul>
+<strong>Why it matters:</strong> Makes sure each test starts fresh
+</div>
+
+<div class="file">
+<strong>📄 pytest.ini</strong><br><br>
+<strong>Purpose:</strong> TEST CONFIGURATION<br><br>
+<strong>Contains:</strong> Rules for how pytest should run tests
+<ul>
+    <li>Which folders have tests</li>
+    <li>Which markers to use (smoke, regression, critical)</li>
+    <li>How to display results</li>
+</ul>
+<strong>Think of it as:</strong> Admin settings for the testing system
+</div>
+
+<div class="file">
+<strong>📄 requirements.txt</strong><br><br>
+<strong>Purpose:</strong> LIST OF TOOLS NEEDED<br><br>
+<strong>Contains:</strong> All the software packages needed to run tests<br><br>
+<strong>Examples:</strong>
+<ul>
+    <li>playwright (controls the web browser)</li>
+    <li>pytest (runs the tests)</li>
+    <li>requests (talks to the website API)</li>
+</ul>
+<strong>Think of it as:</strong> A shopping list of everything you need
+</div>
+
+<div class="file">
+<strong>📄 Makefile</strong><br><br>
+<strong>Purpose:</strong> SHORTCUTS FOR COMMON COMMANDS<br><br>
+<strong>Contains:</strong> Quick commands to run instead of typing long commands<br><br>
+<strong>Example:</strong>
+<ul>
+    <li>Instead of typing: pytest tests/ -v</li>
+    <li>You can type: make test</li>
+</ul>
+<strong>Why it matters:</strong> Saves you time and reduces typing errors
+</div>
+
+<div class="page-break"></div>
+
+<!-- SECTION 2: PROJECT STRUCTURE -->
+<h2>📁 Section 2: Project Folder Structure (What's What)</h2>
+
+<p>Now that everything is installed, let's understand what each folder and file does. Think of the project folder like a house, with different "rooms" for different purposes:</p>
+
+<div class="summary-box">
+<strong>Quick Overview of Key Folders:</strong>
+<ul>
+    <li>📁 <strong>tests/</strong> - Contains all the test files that check if features work</li>
+    <li>📁 <strong>pages/</strong> - Contains instructions for how tests interact with the website</li>
+    <li>📁 <strong>utils/</strong> - Contains helper tools that tests use</li>
+    <li>📁 <strong>.venv/</strong> - Contains all the testing software (installed packages)</li>
+</ul>
+</div>
+
+<h3>📁 The "tests/" Folder (The Test Files)</h3>
+
+<div class="folder">
+<strong>What it contains:</strong> Test files that automatically check if the website features work<br><br>
+<strong>Key files inside:</strong>
+<ul>
+    <li><code>test_authentication.py</code> - Tests login and registration ✅ These mostly PASS</li>
+    <li><code>test_shopping_cart.py</code> - Tests shopping cart (needs books)</li>
+    <li><code>test_checkout.py</code> - Tests the checkout process</li>
+    <li><code>test_product_search.py</code> - Tests searching for books</li>
+    <li><code>test_api.py</code> - Tests the website's backend system</li>
+</ul>
+<strong>Why it matters:</strong> These are the actual tests that verify if BookCart works correctly<br>
+<strong>When you need to know:</strong> When a test fails and you want to understand what went wrong
+</div>
+
+<h3>📁 The "pages/" Folder (The Instruction Manual)</h3>
+
+<div class="folder">
+<strong>What it contains:</strong> Instructions that teach the test robot how to interact with the website<br><br>
+<strong>Think of it as:</strong> A training manual for the automated test robot<br><br>
+<strong>Key files inside:</strong>
+<ul>
+    <li><code>login_page.py</code> - "Here's how to login to the website"</li>
+    <li><code>register_page.py</code> - "Here's how to create a new account"</li>
+    <li><code>home_page.py</code> - "Here's how to use the home page"</li>
+    <li><code>product_detail_page.py</code> - "Here's how to view a book"</li>
+    <li><code>checkout_page.py</code> - "Here's how to buy books"</li>
+    <li><code>cart_page.py</code> - "Here's how to manage the shopping cart"</li>
+</ul>
+<strong>Why it matters:</strong> These tell the tests WHERE to click and WHAT to do<br>
+<strong>Example instruction:</strong> "To login, click the username field and type the username"
+</div>
+
+<h3>📄 Important Configuration Files</h3>
+
+<div class="file">
+<strong>config.py</strong> - The Settings File<br><br>
+<strong>Contains:</strong>
+<ul>
+    <li>Website URL: https://bookcart.azurewebsites.net/ ← Where tests connect to</li>
+    <li>Browser type: Chromium ← What browser to use</li>
+    <li>Timeout: 30 seconds ← How long to wait before giving up</li>
+    <li>Test credentials: Username and password for testing</li>
+</ul>
+<strong>Think of it as:</strong> The configuration dashboard for all tests<br>
+<strong>When you need to change it:</strong> Almost never! Only if the website URL changes
+</div>
+
+<div class="file">
+<strong>conftest.py</strong> - The Startup/Shutdown Instructions<br><br>
+<strong>Does:</strong>
+<ul>
+    <li>Starts the web browser before each test</li>
+    <li>Sets up test data that tests need</li>
+    <li>Takes screenshots if tests fail</li>
+    <li>Closes the browser after each test completes</li>
+</ul>
+<strong>Think of it as:</strong> The opening and closing procedures for a store each day
+</div>
+
+<div class="file">
+<strong>requirements.txt</strong> - The Shopping List of Tools<br><br>
+<strong>Contains:</strong> Every piece of software needed to run tests
+<ul>
+    <li>playwright - Controls the web browser automatically</li>
+    <li>pytest - The test runner (executes tests)</li>
+    <li>requests - Talks to the website's API</li>
+    <li>pydantic - Validates settings</li>
+    <li>And several others...</li>
+</ul>
+<strong>Think of it as:</strong> A recipe that says "to run tests, you need these ingredients"
+</div>
+
+<h3>📁 The ".venv/" Folder (The Toolbox)</h3>
+
+<div class="folder">
+<strong>What it is:</strong> A special isolated folder containing all the testing software<br><br>
+<strong>Why it exists:</strong> So this project's tools don't interfere with other Python projects<br><br>
+<strong>Important note:</strong> Don't edit anything in here! It's automatically generated<br><br>
+<strong>What happens when you activate it:</strong>
+<div class="code">
+source .venv/bin/activate
+</div>
+This tells your computer "use the tools in this folder for running tests"
+</div>
+
+<div class="page-break"></div>
+
+<!-- SECTION 3 -->
+<h2>🎯 Section 3: What is This?</h2>
+
+<p>This guide will help you:</p>
+<ul>
+    <li>✓ Understand why some tests are failing</li>
+    <li>✓ Fix the issues step by step</li>
+    <li>✓ Successfully run the BookCart testing system</li>
+    <li>✓ Know what "passes" and "fails" means in testing</li>
+</ul>
+
+<div class="important">
+<strong>⚠️ Important:</strong> Do NOT worry if you don't understand all the technical terms - we'll explain everything in plain English.
+</div>
+
+<div class="page-break"></div>
+
+<!-- SECTION 2 -->
+<h2>📋 Section 4: Before You Start</h2>
+
+<h3>You will need:</h3>
+<ul>
+    <li>✓ A computer with internet access</li>
+    <li>✓ The BookCart website (https://bookcart.azurewebsites.net/)</li>
+    <li>✓ A web browser (Chrome, Firefox, Safari, Edge)</li>
+    <li>✓ About 30 minutes to follow these steps</li>
+    <li>✓ Your login credentials for the BookCart website</li>
+</ul>
+
+<h3>What you should have already:</h3>
+<ul>
+    <li>✓ A project folder on your computer with test files</li>
+    <li>✓ Software already installed to run the tests</li>
+</ul>
+
+<div class="page-break"></div>
+
+<!-- SECTION 3 -->
+<h2>🔍 Section 5: Understanding the Problem</h2>
+
+<p>Think of testing like quality checking at a factory:</p>
+
+<div class="box">
+<strong>Normal Factory Process:</strong><br>
+Make Product → Test It → Check If It Works → Ship It
+</div>
+
+<div class="box">
+<strong>BookCart Testing:</strong><br>
+Write Code → Run Tests → Check If It Works → Fix If Needed
+</div>
+
+<div class="important">
+<strong>Current Problem:</strong><br>
+Some tests cannot run because there's NO TEST DATA in the bookstore!<br><br>
+This is like trying to test a store with no products on the shelves!
+</div>
+
+<h3>The Actual Situation:</h3>
+<ul>
+    <li>We have a bookstore website (bookcart.azurewebsites.net)</li>
+    <li>The website currently has NO BOOKS in the database</li>
+    <li>Our tests try to add books to cart, but there are no books!</li>
+    <li>So the tests fail automatically</li>
+</ul>
+
+<h3>What We Need to Do:</h3>
+<ul>
+    <li>Add some sample books to the bookstore</li>
+    <li>Then the tests can run properly</li>
+    <li>Then we'll see which tests actually work</li>
+</ul>
+
+<div class="page-break"></div>
+
+<!-- SECTION 4 -->
+<h2>✅ Section 6: Step-By-Step Solution</h2>
+
+<h3>Phase 1: Understand What's Happening</h3>
+
+<div class="step">
+<strong>Step 1: Open the BookCart Website</strong><br><br>
+<ol>
+    <li>Open your web browser (Chrome, Firefox, Safari, Edge)</li>
+    <li>Type this address in the address bar: <code>https://bookcart.azurewebsites.net/</code></li>
+    <li>Press Enter</li>
+</ol>
+You should see the BookCart bookstore website
+</div>
+
+<div class="step">
+<strong>Step 2: Look for the Bookshelf</strong><br><br>
+<ol>
+    <li>On the home page, look for a section that shows books</li>
+    <li>You should see something like:
+        <ul>
+            <li>"Featured Books"</li>
+            <li>Or a grid/list of books</li>
+            <li>Or a section that says "Books"</li>
+        </ul>
+    </li>
+</ol>
+<div class="important">
+IMPORTANT: If you see NO BOOKS displayed, that's our problem!<br>
+This means the database is empty.
+</div>
+</div>
+
+<div class="step">
+<strong>Step 3: Check If There's an Admin Section</strong><br><br>
+Look at the top navigation/menu. Do you see any of these?
+<ul>
+    <li>"Admin"</li>
+    <li>"Management"</li>
+    <li>"Dashboard"</li>
+    <li>"Add Books"</li>
+    <li>"Manage Books"</li>
+    <li>A button or link for administrators</li>
+</ul>
+<strong>If YES:</strong> Go to Phase 2A (Add Books Manually)<br>
+<strong>If NO:</strong> Go to Phase 2B (Check Database Settings)
+</div>
+
+<div class="page-break"></div>
+
+<h3>Phase 2A: Add Books Manually (If Admin Section Exists)</h3>
+
+<div class="step">
+<strong>Step 1: Login as Administrator</strong><br><br>
+<ol>
+    <li>Click on "Login" button (usually top right)</li>
+    <li>Enter your username: <code>jaacabrera</code></li>
+    <li>Enter your password: <code>Admin1234!</code></li>
+    <li>Click "Login"</li>
+</ol>
+You should now be logged in.
+</div>
+
+<div class="step">
+<strong>Step 2: Find Admin or Management Section</strong><br><br>
+<ol>
+    <li>Look for a menu or dropdown (often in top right near your name)</li>
+    <li>Click on "Admin" or "Management" or similar</li>
+    <li>Look for an option like "Add Book" or "Manage Books"</li>
+</ol>
+</div>
+
+<div class="step">
+<strong>Step 3: Add Sample Books</strong><br><br>
+Add at least 5 books with the following information:
+<br><br>
+<table>
+    <tr>
+        <th>Book Title</th>
+        <th>Author</th>
+        <th>Price</th>
+        <th>Category</th>
+    </tr>
+    <tr>
+        <td>Python Programming</td>
+        <td>John Smith</td>
+        <td>$49.99</td>
+        <td>Programming</td>
+    </tr>
+    <tr>
+        <td>Web Development Guide</td>
+        <td>Jane Doe</td>
+        <td>$39.99</td>
+        <td>Web/Technology</td>
+    </tr>
+    <tr>
+        <td>Database Design</td>
+        <td>Bob Johnson</td>
+        <td>$59.99</td>
+        <td>Technology</td>
+    </tr>
+    <tr>
+        <td>Cloud Computing</td>
+        <td>Alice Brown</td>
+        <td>$44.99</td>
+        <td>Technology</td>
+    </tr>
+    <tr>
+        <td>DevOps Handbook</td>
+        <td>Charlie Wilson</td>
+        <td>$54.99</td>
+        <td>Technology</td>
+    </tr>
+</table>
+<br>
+For each book:
+<ol>
+    <li>Click "Add Book" button</li>
+    <li>Fill in the fields with the information above</li>
+    <li>Click "Save" or "Submit"</li>
+    <li>Repeat for each book</li>
+</ol>
+</div>
+
+<div class="step">
+<strong>Step 4: Verify Books Were Added</strong><br><br>
+<ol>
+    <li>Go back to the home page</li>
+    <li>Look at the bookshelf/products section</li>
+    <li>You should now see the books you added</li>
+</ol>
+<div class="summary-box">
+🎉 <strong>CONGRATULATIONS! You've added test data!</strong><br>
+→ SKIP to Section 5
+</div>
+</div>
+
+<div class="page-break"></div>
+
+<h3>Phase 2B: Check Database or Settings (If No Admin Section)</h3>
+
+<div class="step">
+<strong>Step 1: Ask Your IT Team</strong><br><br>
+Since there's no obvious admin section, you may need help from your IT team.<br><br>
+Ask them:<br>
+<em>"Can you populate the BookCart database with sample book records? We need at least 5 books with titles, authors, and prices."</em><br><br>
+They can either:
+<ol>
+    <li>Run a database seed script</li>
+    <li>Add books directly to the database</li>
+    <li>Set up a migration/reset script</li>
+</ol>
+</div>
+
+<div class="step">
+<strong>Step 2: Wait for Confirmation</strong><br><br>
+Once they've added the books, verify by:
+<ol>
+    <li>Going to https://bookcart.azurewebsites.net/</li>
+    <li>Checking that books now appear on the home page</li>
+    <li>Confirming you see at least 3-5 books</li>
+</ol>
+</div>
+
+<div class="page-break"></div>
+
+<!-- SECTION 5 -->
+<h2>🚀 Section 7: Run the Tests</h2>
+
+<p>Now that we have test data, let's run the automated tests!</p>
+
+<div class="step">
+<strong>Step 1: Open Your Terminal/Command Prompt</strong><br><br>
+<strong>Windows:</strong>
+<ol>
+    <li>Press Windows key + R</li>
+    <li>Type: <code>cmd</code></li>
+    <li>Press Enter</li>
+</ol>
+<strong>Mac:</strong>
+<ol>
+    <li>Press Command + Space</li>
+    <li>Type: <code>terminal</code></li>
+    <li>Press Enter</li>
+</ol>
+<strong>Linux:</strong>
+<ol>
+    <li>Right-click desktop → Open Terminal</li>
+    <li>OR Press Ctrl + Alt + T</li>
+</ol>
+</div>
+
+<div class="step">
+<strong>Step 2: Navigate to the Project Folder</strong><br><br>
+In the terminal, type:<br>
+<div class="code">cd "/Users/jaacabrera/Documents/Python Scripts/Online Bookstore"</div>
+Then press Enter
+</div>
+
+<div class="step">
+<strong>Step 3: Activate the Test Environment</strong><br><br>
+This prepares the testing system.<br><br>
+Type:<br>
+<div class="code">source .venv/bin/activate</div>
+Then press Enter<br><br>
+You should see your prompt change (it will show .venv somewhere)
+</div>
+
+<div class="step">
+<strong>Step 4: Run the Tests</strong><br><br>
+Type this command:<br>
+<div class="code">pytest tests/ -v</div>
+Then press Enter<br><br>
+Now watch as the tests run! This will take several minutes (8-10 minutes).<br>
+You'll see text scrolling on screen showing each test being run.
+</div>
+
+<div class="page-break"></div>
+
+<!-- SECTION 6 -->
+<h2>📊 Section 8: What Each Result Means</h2>
+
+<h3>When Tests Finish, You'll See Results:</h3>
+
+<div class="box">
+<strong>✅ PASSED</strong><br><br>
+<strong>Meaning:</strong> This test worked perfectly!<br>
+<strong>What it means:</strong> The feature is working correctly<br>
+<strong>Action:</strong> No action needed - celebrate!<br><br>
+<em>Example: ✅ test_login_with_valid_credentials PASSED</em>
+</div>
+
+<div class="box">
+<strong>❌ FAILED</strong><br><br>
+<strong>Meaning:</strong> This test did not work<br>
+<strong>What it means:</strong> There's a problem with this feature<br>
+<strong>Action:</strong> Make note of the error and report it<br><br>
+<em>Example: ❌ test_add_to_cart FAILED - Error: Element not found</em>
+</div>
+
+<div class="box">
+<strong>⊘ SKIPPED</strong><br><br>
+<strong>Meaning:</strong> This test was not run<br>
+<strong>Why:</strong> Usually because test data is missing (expected)<br>
+<strong>Action:</strong> This is NORMAL - no action needed<br><br>
+<em>Example: ⊘ test_featured_books_displayed SKIPPED - Reason: No books available in the database</em>
+</div>
+
+<h3>Final Summary Line:</h3>
+
+<p>You'll see something like:</p>
+<div class="code">=============== 34 passed, 5 skipped, 18 failed in 479.90s ================</div>
+
+<p>This means:</p>
+<ul>
+    <li>34 tests worked fine ✅</li>
+    <li>5 tests were skipped (not run, expected) ⊘</li>
+    <li>18 tests failed ❌</li>
+</ul>
+
+<div class="summary-box">
+<strong>Good Goal to Aim For:</strong>
+<ul>
+    <li>More PASSED than FAILED</li>
+    <li>Some SKIPPED is normal</li>
+    <li>34+ PASSED is excellent</li>
+</ul>
+</div>
+
+<div class="page-break"></div>
+
+<!-- SECTION 7 -->
+<h2>🔧 Section 9: Troubleshooting</h2>
+
+<h3>Problem: "Command not found: pytest"</h3>
+
+<div class="step">
+<strong>Solution 1: You didn't activate the environment</strong><br>
+Type: <code>source .venv/bin/activate</code><br>
+Try pytest command again
+</div>
+
+<div class="step">
+<strong>Solution 2: You're not in the right folder</strong><br>
+Type: <code>pwd</code> (to see current location)<br>
+Should show: /Users/jaacabrera/Documents/Python Scripts/Online Bookstore<br>
+If not, navigate there first
+</div>
+
+<h3>Problem: Tests are taking very long (more than 20 minutes)</h3>
+
+<p>This is normal for full test suite!</p>
+<ul>
+    <li>Expected time: 8-15 minutes</li>
+    <li>To speed up, run just specific tests: <code>pytest tests/test_authentication.py -v</code></li>
+</ul>
+
+<h3>Problem: "Still on login page after login"</h3>
+
+<p>This usually means the website credentials don't work. Solution:</p>
+<ol>
+    <li>Verify you can login manually at bookcart.azurewebsites.net</li>
+    <li>Check that your credentials are correct</li>
+    <li>Contact system administrator if login doesn't work</li>
+</ol>
+
+<h3>Problem: "Element not found" errors</h3>
+
+<p>This means the test code is looking for something on the website that isn't there.</p><br>
+<strong>Possible causes:</strong>
+<ul>
+    <li>Website design changed</li>
+    <li>Books aren't in the database (back to Phase 2!)</li>
+    <li>Form fields are in different places</li>
+</ul>
+<strong>Solution:</strong>
+<ul>
+    <li>Make sure you completed Phase 2</li>
+    <li>Check that books are visible on the home page</li>
+    <li>Contact your developer team</li>
+</ul>
+
+<h3>Problem: "No books available to add to cart"</h3>
+
+<div class="important">
+This is actually EXPECTED and OK!<br><br>
+<strong>Meaning:</strong> You haven't added test data yet<br>
+<strong>Solution:</strong> Go back to Phase 2 and add books<br><br>
+This is NOT a test failure - it's a SKIPPED test
+</div>
+
+<div class="page-break"></div>
+
+<!-- QUICK REFERENCE -->
+<h2>⚡ Quick Reference Card</h2>
+
+<h3>Commands to Remember:</h3>
+
+<div class="code">
+Navigate to folder:<br>
+cd "/Users/jaacabrera/Documents/Python Scripts/Online Bookstore"
+<br><br>
+Activate testing environment:<br>
+source .venv/bin/activate
+<br><br>
+Run ALL tests:<br>
+pytest tests/ -v
+<br><br>
+Run ONLY auth tests (faster):<br>
+pytest tests/test_authentication.py -v
+<br><br>
+Exit terminal:<br>
+exit
+</div>
+
+<h3>Key Website Links:</h3>
+
+<div class="summary-box">
+<strong>Bookstore:</strong><br>
+https://bookcart.azurewebsites.net/<br><br>
+<strong>API Documentation:</strong><br>
+https://bookcart.azurewebsites.net/swagger
+</div>
+
+<h3>Important Numbers:</h3>
+
+<ul>
+    <li>Books to add: At least 5</li>
+    <li>Test duration: 8-15 minutes</li>
+    <li>Minimum passing tests: 30+</li>
+    <li>Expected skipped tests: 5-10</li>
+</ul>
+
+<div class="page-break"></div>
+
+<!-- FOOTER -->
+<div style="text-align: center; margin-top: 50px; padding-top: 20px; border-top: 2px solid #ddd;">
+    <h3>End of Guide</h3>
+    <p>Thank you for following this guide!</p>
+    <p style="margin: 20px 0;">Questions? Your IT team or development team is here to help!</p>
+    <p style="color: #666; font-size: 12px;">Last Updated: April 7, 2026</p>
+</div>
+
+</body>
+</html>

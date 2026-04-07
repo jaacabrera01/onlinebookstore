@@ -1,0 +1,57 @@
+[
+  {
+    "tag": "BUTTON",
+    "type": "submit",
+    "id": "",
+    "name": "",
+    "class": "mdc-button mdc-button--unelevated mat-mdc-unelevated-button mat-primary mat-mdc-button-base",
+    "placeholder": "",
+    "data-testid": "",
+    "text": "book Book Cart",
+    "xpath": "body/app-root[1]/app-nav-bar[1]/mat-toolbar[1]/mat-toolbar-row[1]/div[1]/button[1]"
+  },
+  {
+    "tag": "INPUT",
+    "type": "search",
+    "id": "",
+    "name": "",
+    "class": "mat-mdc-autocomplete-trigger searchbox ng-untouched ng-pristine ng-valid",
+    "placeholder": "Search books or authors",
+    "data-testid": "",
+    "text": "",
+    "xpath": "body/app-root[1]/app-nav-bar[1]/mat-toolbar[1]/mat-toolbar-row[1]/div[2]/app-search[1]/form[1]/input[1]"
+  },
+  {
+    "tag": "BUTTON",
+    "type": "submit",
+    "id": "",
+    "name": "",
+    "class": "mdc-icon-button mat-mdc-icon-button mat-unthemed mat-mdc-button-base ng-star-inserted",
+    "placeholder": "",
+    "data-testid": "",
+    "text": "shopping_cart0",
+    "xpath": "body/app-root[1]/app-nav-bar[1]/mat-toolbar[1]/mat-toolbar-row[1]/div[3]/button[1]"
+  },
+  {
+    "tag": "BUTTON",
+    "type": "submit",
+    "id": "",
+    "name": "",
+    "class": "mat-mdc-tooltip-trigger mdc-button mdc-button--unelevated mat-mdc-unelevated-button mat-primary mat-mdc-button-base ng-star-inserted",
+    "placeholder": "",
+    "data-testid": "",
+    "text": "Login",
+    "xpath": "body/app-root[1]/app-nav-bar[1]/mat-toolbar[1]/mat-toolbar-row[1]/div[3]/button[2]"
+  },
+  {
+    "tag": "INPUT",
+    "type": "range",
+    "id": "",
+    "name": "",
+    "class": "mdc-slider__input",
+    "placeholder": "",
+    "data-testid": "",
+    "text": "",
+    "xpath": "body/app-root[1]/div[1]/app-home[1]/div[1]/div[1]/div[1]/app-price-filter[1]/mat-card[1]/mat-card-content[1]/mat-slider[1]/input[1]"
+  }
+]

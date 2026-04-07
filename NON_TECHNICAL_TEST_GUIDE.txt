@@ -1,0 +1,993 @@
+BOOKCART AUTOMATION TEST GUIDE
+========================================
+A Step-By-Step Guide for Non-Technical Users
+========================================
+
+Document Version: 1.0
+Date: April 7, 2026
+Purpose: Complete guide to setting up and running BookCart tests
+
+
+TABLE OF CONTENTS
+========================================
+1. What is This? (Overview)
+2. Before You Start (Prerequisites)
+3. Project Folder Structure (What Each Folder/File Does)
+4. Understanding the Problem
+5. Step-By-Step Solution
+6. How to Run Tests
+7. What Each Result Means
+8. Troubleshooting
+
+
+================================================================================
+SECTION 0: PROJECT FOLDER STRUCTURE (WHAT'S WHAT)
+================================================================================
+
+Think of the project folder like a house. Let me explain each "room":
+
+Your Main Project Folder:
+📁 Online Bookstore
+   ├── This is your main folder with everything inside
+
+
+📂 IMPORTANT FOLDERS EXPLAINED
+================================================================================
+
+📁 tests/
+   Purpose: Contains all the TEST FILES
+   
+   Think of it as: A checklist of things to verify work correctly
+   
+   Main Test Files:
+   - test_authentication.py → Tests login and registration features
+   - test_shopping_cart.py → Tests shopping cart functions
+   - test_checkout.py → Tests checkout process
+   - test_product_search.py → Tests searching for books
+   - test_api.py → Tests the backend API communication
+   - test_visual_regression.py → Tests how pages look visually
+   
+   Security & Advanced Test Files:
+   - test_api_security.py → Tests API security vulnerabilities
+   - test_authorization_security.py → Tests user permission restrictions
+   - test_payment_security.py → Tests payment processing security
+   - test_security_comprehensive.py → Tests overall system security
+   - test_data_validation.py → Tests data validation and error handling
+   - login_page.py → Additional login page automation
+   - visual/ → Folder containing visual regression test resources
+   
+   Why it matters: These are the automated tests that check if everything works safely!
+
+
+📁 pages/
+   Purpose: Contains INSTRUCTIONS for interacting with the website
+   
+   Think of it as: A guide book for the test robot on how to use the website
+   
+   Files inside:
+   - home_page.py → Instructions for using the home page
+   - login_page.py → Instructions for the login page
+   - register_page.py → Instructions for registration
+   - product_detail_page.py → Instructions for product pages
+   - checkout_page.py → Instructions for checkout
+   - cart_page.py → Instructions for shopping cart
+   - __init__.py → Basic instructions all pages use
+   
+   Why it matters: These tell the tests where to click and what to do
+
+
+📁 utils/
+   Purpose: Contains HELPER TOOLS
+   
+   Think of it as: A toolbox with useful functions
+   
+   Files inside:
+   - api_client.py → Tool for communicating with the website database
+   - visual_regression.py → Tool for comparing page screenshots
+   
+   Why it matters: These help tests do their jobs more efficiently
+
+
+📁 .venv/
+   Purpose: Contains all the TESTING SOFTWARE
+   
+   Think of it as: A special folder with all the tools needed to run tests
+   
+   Why it matters: You need this to run tests (we activate it with a command)
+
+
+📁 test-results/
+   Purpose: Stores SCREENSHOTS and test evidence
+   
+   Think of it as: A folder where test failures get photographed as proof
+   
+   Why it matters: When tests fail, screenshots help identify problems
+
+
+📁 allure-results/
+   Purpose: Contains TEST RESULT DATA
+   
+   Think of it as: A report on test results in a format that makes reports
+   
+   Why it matters: Used to generate nice test report documents
+
+
+📂 IMPORTANT FILES EXPLAINED
+================================================================================
+
+📄 config.py
+   Purpose: SETTINGS FILE
+   
+   Contains: All the configuration for tests
+   - Website URL: https://bookcart.azurewebsites.net/
+   - Browser type: Chrome
+   - Timeouts: How long to wait before giving up
+   - Test usernames and passwords
+   
+   Think of it as: Instructions for how the tests should behave
+   
+   Example settings:
+   ├── BASE_URL: The website to test
+   ├── HEADLESS: Run invisible (yes) or visible (no)
+   ├── BROWSERS: Which browser to use
+   ├── TIMEOUT: How long to wait (30 seconds)
+   └── TEST_USERNAME: Login credentials for testing
+   
+   When to change it: Almost never - only if website URL changes
+
+
+📄 conftest.py
+   Purpose: SETUP AND TEARDOWN
+   
+   Think of it as: Instructions for what to do before and after each test
+   
+   Contains:
+   - How to start the web browser
+   - How to create test pages
+   - How to clean up after tests finish
+   - Browser configuration and initialization
+   
+   Why it matters: Makes sure each test starts fresh
+
+
+📄 conftest_allure.py
+   Purpose: ALLURE REPORTING CONFIGURATION
+   
+   Think of it as: Instructions for creating nice test reports
+   
+   Contains:
+   - Test result formatting
+   - Report generation settings
+   - Environment information for reports
+   
+   Why it matters: Generates beautiful HTML test reports
+
+
+📄 pytest.ini
+   Purpose: TEST CONFIGURATION
+   
+   Contains: Rules for how pytest should run tests
+   - Which folders have tests
+   - Which markers to use (smoke, regression, critical)
+   - How to display results
+   
+   Think of it as: Admin settings for the testing system
+
+
+📄 pyproject.toml
+   Purpose: PROJECT INFORMATION
+   
+   Contains:
+   - Project name: bookcart-automation
+   - Version number
+   - Required packages
+   - Python version needed
+   
+   Think of it as: The passport for this project
+
+
+📄 requirements.txt
+   Purpose: LIST OF TOOLS NEEDED
+   
+   Contains: All the software packages needed to run tests
+   
+   Examples:
+   - playwright (controls the web browser)
+   - pytest (runs the tests)
+   - requests (talks to the website API)
+   
+   Think of it as: A shopping list of everything you need
+
+
+📄 Makefile
+   Purpose: SHORTCUTS FOR COMMON COMMANDS
+   
+   Think of it as: A shortcut menu for running tests
+   
+   Contains: Quick commands instead of long typed-out commands
+   
+   MOST COMMON COMMANDS:
+   
+   make test              Run ALL tests
+   make smoke             Run quick "smoke tests" (fast check - 5 minutes)
+   make api               Run ONLY API tests
+   make visual            Run ONLY visual regression tests
+   make report            Run tests AND generate beautiful HTML report
+   make clean             Delete old test result files
+   
+   ADVANCED COMMANDS:
+   
+   make install           Install required software
+   make install-browsers  Install web browsers for testing
+   make lint              Check code quality
+   make format            Auto-fix code formatting
+   make coverage          Show how much code is tested
+   make help              Show all available commands
+   
+   WHY IT MATTERS:
+   - Saves you typing long commands
+   - Reduces mistakes
+   - Ensures commands run the same way every time
+   - Everyone uses the same standards
+   
+   EXAMPLE:
+   Instead of typing:     pytest tests/test_api.py -v
+   Just type:             make api
+
+
+📄 Dockerfile
+   Purpose: CONTAINERIZATION RECIPE
+   
+   Think of it as: Instructions for building a self-contained testing environment
+   
+   What it does:
+   - Creates a special isolated container with all testing tools
+   - Installs required software automatically
+   - Sets up a clean environment for consistent test results
+   
+   When to use it:
+   - When you want to run tests without installing software on your computer
+   - When tests need to run in a standard environment (like on a server)
+   - When you want to avoid "works on my computer" problems
+
+
+📄 docker-compose.yml
+   Purpose: MANAGING MULTIPLE CONTAINERS
+   
+   Think of it as: A conductor orchestrating multiple concert musicians
+   
+   What it does:
+   - Runs the test container (where tests execute)
+   - Runs the Allure reporting container (where reports are generated)
+   - Connects them together
+   - Sets up shared storage for test results
+   
+   When to use it:
+   - Type: docker-compose up (starts both testing and reporting)
+   - Once complete, view report at: http://localhost:4040
+   
+   Easier option:
+   - For beginners, use: make report (handles everything internally)
+
+
+📄 setup.sh & setup.bat
+   Purpose: ONE-TIME SETUP SCRIPTS
+   
+   Think of it as: Automated setup wizard
+   
+   setup.sh: For Mac/Linux
+   setup.bat: For Windows
+   
+   What they do:
+   - Install required software
+   - Create test environment
+   - Get everything ready to run
+
+
+📄 bookcart_automation.egg-info/
+   Purpose: PACKAGE INFORMATION
+   
+   Think of it as: How Python knows about this project
+   
+   For now: You don't need to touch this
+
+
+================================================================================
+SECTION 1: WHAT IS THIS?
+================================================================================
+
+This guide will help you:
+✓ Understand why some tests are failing
+✓ Fix the issues step by step
+✓ Successfully run the BookCart testing system
+✓ Know what "passes" and "fails" means in testing
+
+Do NOT worry if you don't understand all the technical terms - we'll explain 
+everything in plain English.
+
+
+================================================================================
+SECTION 2: BEFORE YOU START
+================================================================================
+
+You will need:
+✓ A computer with internet access
+✓ The BookCart website (https://bookcart.azurewebsites.net/)
+✓ A web browser (Chrome, Firefox, Safari, Edge)
+✓ About 30 minutes to follow these steps
+✓ Your login credentials for the BookCart website
+
+What you should have already:
+✓ A project folder on your computer with test files
+✓ Software already installed to run the tests
+
+
+================================================================================
+SECTION 3: UNDERSTANDING THE PROBLEM
+================================================================================
+
+Think of testing like quality checking at a factory:
+
+[NORMAL FACTORY PROCESS]
+Make Product → Test It → Check If It Works → Ship It
+
+[BOOKCART TESTING]
+Write Code → Run Tests → Check If It Works → Fix If Needed
+
+Currently, we have a problem:
+❌ Some tests cannot run because there's NO TEST DATA in the bookstore
+
+This is like trying to test a store with no products on the shelves!
+
+THE ACTUAL SITUATION:
+- We have a bookstore website (bookcart.azurewebsites.net)
+- The website currently has NO BOOKS in the database
+- Our tests try to add books to cart, but there are no books!
+- So the tests fail automatically
+
+WHAT WE NEED TO DO:
+- Add some sample books to the bookstore
+- Then the tests can run properly
+- Then we'll see which tests actually work
+
+
+================================================================================
+SECTION 4: STEP-BY-STEP SOLUTION
+================================================================================
+
+PHASE 1: UNDERSTAND WHAT'S HAPPENING
+================================================================================
+
+Step 1: Open the BookCart Website
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Open your web browser (Chrome, Firefox, Safari, Edge)
+2. Type this address in the address bar:
+   https://bookcart.azurewebsites.net/
+3. Press Enter
+
+You should see the BookCart bookstore website
+
+
+Step 2: Look for the Bookshelf
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. On the home page, look for a section that shows books
+2. You should see something like:
+   - "Featured Books"
+   - Or a grid/list of books
+   - Or a section that says "Books"
+
+IMPORTANT: If you see NO BOOKS displayed, that's our problem!
+This means the database is empty.
+
+
+Step 3: Check If There's an Admin Section
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Look at the top navigation/menu. Do you see any of these?
+- "Admin"
+- "Management"
+- "Dashboard"
+- "Add Books"
+- "Manage Books"
+- A button or link for administrators
+
+If YES: Go to PHASE 2A (Add Books Manually)
+If NO: Go to PHASE 2B (Check Database Settings)
+
+
+PHASE 2A: ADD BOOKS MANUALLY (IF ADMIN SECTION EXISTS)
+================================================================================
+
+Step 1: Login as Administrator
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Click on "Login" button (usually top right)
+2. Enter your username: jaacabrera
+3. Enter your password: Admin1234!
+4. Click "Login"
+
+You should now be logged in.
+
+
+Step 2: Find Admin or Management Section
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Look for a menu or dropdown (often in top right near your name)
+2. Click on "Admin" or "Management" or similar
+3. Look for an option like "Add Book" or "Manage Books"
+
+
+Step 3: Add Sample Books
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Add at least 5 books with the following information:
+
+BOOK 1:
+  Title: Python Programming
+  Author: John Smith
+  Price: $49.99
+  Category: Programming (or similar)
+
+BOOK 2:
+  Title: Web Development Guide
+  Author: Jane Doe
+  Price: $39.99
+  Category: Web/Technology
+
+BOOK 3:
+  Title: Database Design
+  Author: Bob Johnson
+  Price: $59.99
+  Category: Technology
+
+BOOK 4:
+  Title: Cloud Computing
+  Author: Alice Brown
+  Price: $44.99
+  Category: Technology
+
+BOOK 5:
+  Title: DevOps Handbook
+  Author: Charlie Wilson
+  Price: $54.99
+  Category: Technology
+
+For each book:
+1. Click "Add Book" button
+2. Fill in the fields with the information above
+3. Click "Save" or "Submit"
+4. Repeat for each book
+
+
+Step 4: Verify Books Were Added
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Go back to the home page
+2. Look at the bookshelf/products section
+3. You should now see the books you added
+
+CONGRATULATIONS! You've added test data!
+
+→ SKIP to PHASE 3
+
+
+PHASE 2B: CHECK DATABASE OR SETTINGS (IF NO ADMIN SECTION)
+================================================================================
+
+Step 1: Ask Your IT Team
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Since there's no obvious admin section, you may need help from your IT team.
+
+Ask them:
+"Can you populate the BookCart database with sample book records?
+We need at least 5 books with titles, authors, and prices."
+
+They can either:
+1. Run a database seed script
+2. Add books directly to the database
+3. Set up a migration/reset script
+
+
+Step 2: Wait for Confirmation
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Once they've added the books, verify by:
+1. Going to https://bookcart.azurewebsites.net/
+2. Checking that books now appear on the home page
+3. Confirming you see at least 3-5 books
+
+
+PHASE 3: RUN THE TESTS
+================================================================================
+
+Now that we have test data, let's run the automated tests!
+
+Step 1: Open Your Terminal/Command Prompt
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Windows:
+  1. Press Windows key + R
+  2. Type: cmd
+  3. Press Enter
+
+Mac:
+  1. Press Command + Space
+  2. Type: terminal
+  3. Press Enter
+
+Linux:
+  1. Right-click desktop → Open Terminal
+  OR
+  2. Press Ctrl + Alt + T
+
+
+Step 2: Navigate to the Project Folder
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+In the terminal, type:
+  cd "/Users/jaacabrera/Documents/Python Scripts/Online Bookstore"
+
+Then press Enter
+
+
+Step 3: Activate the Test Environment
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+This prepares the testing system.
+
+Type:
+  source .venv/bin/activate
+
+Then press Enter
+
+You should see your prompt change (it will show .venv somewhere)
+
+
+Step 4: Run the Tests
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+USING MAKEFILE (EASIER - Recommended for beginners):
+
+Type this command:
+  make test
+
+Then press Enter
+
+This runs: pytest tests/ -v (but you don't have to type it!)
+
+
+ALTERNATIVE: Direct pytest command
+
+If Makefile doesn't work, type:
+  pytest tests/ -v
+
+Then press Enter
+
+
+Now watch as the tests run! This will take several minutes (8-15 minutes).
+
+You'll see text scrolling on screen showing each test being run.
+
+
+================================================================================
+SECTION 5: HOW TO RUN SPECIFIC TESTS (FASTER FOR TROUBLESHOOTING)
+================================================================================
+
+Instead of running all tests (takes 15 minutes), run only what you need:
+
+USING MAKEFILE (EASIER):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Run quick smoke tests only (5 minutes):
+  make smoke
+
+Run API tests only:
+  make api
+
+Run visual tests only:
+  make visual
+
+
+USING PYTEST DIRECTLY:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+RUN ONLY LOGIN/REGISTRATION TESTS:
+  pytest tests/test_authentication.py -v
+
+RUN ONLY SHOPPING TESTS:
+  pytest tests/test_shopping_cart.py -v
+
+RUN ONLY CHECKOUT TESTS:
+  pytest tests/test_checkout.py -v
+
+RUN ONLY SEARCH TESTS:
+  pytest tests/test_product_search.py -v
+
+RUN ONLY API TESTS:
+  pytest tests/test_api.py -v
+  pytest tests/test_api_security.py -v
+
+RUN ONLY SECURITY TESTS:
+  pytest tests/test_security_comprehensive.py -v
+  pytest tests/test_authorization_security.py -v
+  pytest tests/test_payment_security.py -v
+
+RUN ONLY VISUAL TESTS:
+  pytest tests/test_visual_regression.py -v
+
+RUN ONE SPECIFIC TEST:
+  pytest tests/test_authentication.py::TestUserLogin::test_login_with_valid_credentials -v
+
+
+================================================================================
+SECTION 6: UNDERSTANDING TEST RESULTS
+================================================================================
+
+When tests finish, you'll see results. Here's what they mean:
+
+✅ PASSED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Meaning: This test worked perfectly!
+Action: No action needed - celebrate! This feature works correctly.
+
+Example: ✅ test_login_with_valid_credentials PASSED
+
+
+❌ FAILED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Meaning: This test did not work
+Action: Report the error. Make a note of:
+  - Test name
+  - Error message
+  - Time it failed
+
+Example: ❌ test_add_to_cart FAILED
+Error: Element not found
+
+
+⊘ SKIPPED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Meaning: This test was not run
+Why: Usually because test data is missing (this is EXPECTED and OK)
+Action: This is NORMAL - don't worry
+
+Example: ⊘ test_featured_books_displayed SKIPPED
+Reason: No books available in the database (you need to add them first)
+
+
+FINAL SUMMARY LINE:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+After all tests finish, you'll see:
+  =============== 34 passed, 5 skipped, 18 failed in 479.90s ================
+
+How to read it:
+  - 34 PASSED = 34 features working correctly ✅
+  - 5 SKIPPED = 5 tests couldn't run (usually missing data) ⊘
+  - 18 FAILED = 18 features with problems ❌
+  - 479.90s = Total time taken (about 8 minutes)
+
+GOOD BENCHMARKS:
+  - ✅ All 30+ PASSED = Excellent! System is working
+  - ✅ Some SKIPPED is normal
+  - ⚠️ Mix of PASSED and FAILED = Some features need fixing
+  - ❌ Mostly FAILED = System needs significant work
+
+
+================================================================================
+SECTION 7: COMMON PROBLEMS & SOLUTIONS
+================================================================================
+
+PROBLEM: "Command not found: pytest" or "Command not found: make"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Solution 1: You didn't activate the environment
+  Type: source .venv/bin/activate
+  Try command again
+
+Solution 2: You're not in the right folder
+  Type: pwd (to see current location)
+  Should show: /Users/jaacabrera/Documents/Python Scripts/Online Bookstore
+  If not, navigate there first:
+    cd "/Users/jaacabrera/Documents/Python Scripts/Online Bookstore"
+
+Solution 3: Makefile not available (legacy setup)
+  Use direct pytest instead:
+    pytest tests/ -v
+
+Solution 4: Environment isn't set up
+  Type: make install
+  OR contact your IT team
+
+
+PROBLEM: Tests are taking very long (more than 20 minutes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+This is normal for full test suite!
+  Expected time: 8-15 minutes
+  
+To speed up, run just specific tests:
+  pytest tests/test_authentication.py -v
+
+
+PROBLEM: "Still on login page after login"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+This usually means the website credentials don't work.
+
+Solution:
+  1. Verify you can login manually at bookcart.azurewebsites.net
+  2. Check that your credentials are correct
+  3. Contact system administrator if login doesn't work
+
+
+PROBLEM: "Element not found" errors
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+This means the test code is looking for something on the website that isn't there.
+
+Possible causes:
+  1. Website design changed
+  2. Books aren't in the database (back to Phase 2!)
+  3. Form fields are in different places
+
+Solution:
+  - Make sure you completed Phase 2
+  - Check that books are visible on the home page
+  - Contact your developer team
+
+PROBLEM: "Website returns error 404 or 500"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+This means the BookCart website itself has a problem.
+
+Fix:
+  - Try opening https://bookcart.azurewebsites.net/ in your browser
+  - If it doesn't load, website is down
+  - Wait a few minutes and try running tests again
+  - Contact the BookCart team if it stays down
+
+PROBLEM: "No books available to add to cart" (test is SKIPPED)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+This is EXPECTED and NORMAL!
+
+What it means:
+  - Test couldn't run because there's no test data
+  - Books haven't been added to the bookstore yet
+
+This is NOT a FAILURE - it's a SKIPPED test (⊘)
+
+Fix:
+  - Go back to Phase 2 (Adding Books)
+  - Add sample books to the bookstore
+  - Run tests again
+
+Once books are added, these tests will PASS ✅
+
+
+PROBLEM: Tests won't run after I added books
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Solution:
+  1. Exit the terminal (type: exit)
+  2. Open terminal again
+  3. Navigate to project folder again
+  4. Activate environment again: source .venv/bin/activate
+  5. Run tests again: pytest tests/ -v
+
+Sometimes the system needs a "refresh"
+
+
+================================================================================
+SECTION 8: WHAT TO DO WHEN TESTS COMPLETE
+================================================================================
+
+Check the Summary:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Look at the final line of test output
+2. Count how many PASSED, FAILED, SKIPPED
+3. If mostly PASSED: ✓ GOOD NEWS! System is working
+4. If many FAILED: Document these and report them
+
+
+Document Your Results:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Take a screenshot of the final results summary
+Note down:
+  - How many passed
+  - How many failed
+  - How many skipped
+  - The date you ran the tests
+
+
+Report Issues:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+If tests failed, document:
+  - Which test failed (the name)
+  - What error it showed
+  - When you ran it
+
+This helps developers fix the issues
+
+
+Next Steps:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Share results with your team
+2. If all passed: Feature is ready!
+3. If some failed: Report to developers to fix
+4. Run tests again after fixes: pytest tests/ -v
+
+
+================================================================================
+QUICK REFERENCE CARD
+================================================================================
+
+ONE-TIME SETUP:
+  cd "/Users/jaacabrera/Documents/Python Scripts/Online Bookstore"
+  source .venv/bin/activate
+
+
+USING MAKEFILE (EASIEST):
+
+Run all tests:
+  make test
+
+Run quick test (5 min):
+  make smoke
+
+Run tests + generate report:
+  make report
+
+Run only API tests:
+  make api
+
+Run only visual tests:
+  make visual
+
+See all available shortcuts:
+  make help
+
+
+USING PYTEST DIRECTLY:
+
+Run all tests:
+  pytest tests/ -v
+
+Run auth tests:
+  pytest tests/test_authentication.py -v
+
+Run one test:
+  pytest tests/test_authentication.py::TestUserLogin::test_login_with_valid_credentials -v
+
+Run tests with visible browser (debugging):
+  HEADLESS=false pytest tests/test_authentication.py -v
+
+
+OTHER USEFUL COMMANDS:
+
+Clean old test results:
+  make clean
+
+Check code quality:
+  make lint
+
+
+WEBSITE LINKS:
+
+Bookstore:
+  https://bookcart.azurewebsites.net/
+
+Test Report (after running):
+  Check allure-report/ folder or use: make report
+
+
+
+
+
+================================================================================
+GLOSSARY (PLAIN ENGLISH DEFINITIONS)
+================================================================================
+
+Test
+  An automated check to see if a feature works correctly
+
+Test Data
+  Sample information used to test the system (like sample books)
+  Example: When we add 5 books to the bookstore for testing
+
+Database
+  Like a filing cabinet that stores all information
+  Example: Where the books and user accounts are stored
+
+API
+  A way for different computer programs to talk to each other
+  Example: Tests communicate with BookCart backend
+
+Playwright
+  The tool that controls the web browser automatically for us
+  It clicks buttons, types text, reads results - just like a human would
+
+PASS/FAIL/SKIP
+  Results of tests:
+  - PASS (✅) = works correctly
+  - FAIL (❌) = something is wrong
+  - SKIP (⊘) = test couldn't run (usually missing data)
+
+Administrator/Admin
+  Someone with special permissions to manage the system
+  Like the manager at a store
+
+Virtual Environment
+  A special folder (.venv/) with all the software and tools needed
+  Keeps test tools separate from your computer
+
+Headless Mode
+  Running browser invisible (tests run in background)
+  Faster, but harder to debug
+  Normal mode = browser window visible (slower, easier to debug)
+
+Allure Report
+  A beautiful HTML document showing test results with graphs and charts
+  Generated by the testing system after tests finish
+
+Makefile
+  A file with shortcuts (aliases) for long commands
+  Example: "make test" instead of "pytest tests/ -v"
+
+Conftest
+  Files that set up and clean up before/after tests
+  Makes sure each test starts fresh
+
+
+================================================================================
+GETTING HELP
+================================================================================
+
+If you're stuck, provide this information to your IT team:
+
+1. WHAT YOU TRIED:
+   "I ran: pytest tests/ -v"
+
+2. WHAT HAPPENED:
+   - Paste the error message
+   - Describe what you saw
+
+3. WHEN IT HAPPENED:
+   - What step were you on?
+   - Time and date
+
+4. WHAT YOU EXPECTED:
+   - What should have happened?
+
+5. SCREENSHOTS:
+   - Photos of the error if possible
+
+
+================================================================================
+END OF GUIDE
+================================================================================
+
+Thank you for following this guide!
+
+You are now able to:
+✓ Understand what BookCart tests do
+✓ Add test data to the system
+✓ Run tests successfully
+✓ Interpret test results
+✓ Troubleshoot common problems
+
+Questions? Your IT team or development team is here to help!
+
+Last Updated: April 7, 2026
+For Help Contact: Your IT Department
+
+
+================================================================================
