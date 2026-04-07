@@ -33,6 +33,11 @@ jobs:
         playwright install
     
     - name: Run API Security Tests
+      env:
+        TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
+        TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+        API_ADMIN_USERNAME: ${{ secrets.API_ADMIN_USERNAME }}
+        API_ADMIN_PASSWORD: ${{ secrets.API_ADMIN_PASSWORD }}
       run: |
         pytest tests/test_api_security.py -v --tb=short
       continue-on-error: true
@@ -48,41 +53,81 @@ jobs:
       continue-on-error: true
     
     - name: Run Data Validation Tests
+      env:
+        TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
+        TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+        API_ADMIN_USERNAME: ${{ secrets.API_ADMIN_USERNAME }}
+        API_ADMIN_PASSWORD: ${{ secrets.API_ADMIN_PASSWORD }}
       run: |
         pytest tests/test_data_validation.py -v --tb=short
       continue-on-error: true
     
     - name: Run Core Security Tests
+      env:
+        TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
+        TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+        API_ADMIN_USERNAME: ${{ secrets.API_ADMIN_USERNAME }}
+        API_ADMIN_PASSWORD: ${{ secrets.API_ADMIN_PASSWORD }}
       run: |
         pytest tests/test_security_comprehensive.py -v --tb=short
       continue-on-error: true
     
     - name: Run Authentication Tests
+      env:
+        TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
+        TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+        API_ADMIN_USERNAME: ${{ secrets.API_ADMIN_USERNAME }}
+        API_ADMIN_PASSWORD: ${{ secrets.API_ADMIN_PASSWORD }}
       run: |
         pytest tests/test_authentication.py -v --tb=short
       continue-on-error: true
     
     - name: Run Shopping Cart Tests
+      env:
+        TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
+        TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+        API_ADMIN_USERNAME: ${{ secrets.API_ADMIN_USERNAME }}
+        API_ADMIN_PASSWORD: ${{ secrets.API_ADMIN_PASSWORD }}
       run: |
         pytest tests/test_shopping_cart.py -v --tb=short
       continue-on-error: true
     
     - name: Run Checkout Tests
+      env:
+        TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
+        TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+        API_ADMIN_USERNAME: ${{ secrets.API_ADMIN_USERNAME }}
+        API_ADMIN_PASSWORD: ${{ secrets.API_ADMIN_PASSWORD }}
       run: |
         pytest tests/test_checkout.py -v --tb=short
       continue-on-error: true
     
     - name: Run Product Search Tests
+      env:
+        TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
+        TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+        API_ADMIN_USERNAME: ${{ secrets.API_ADMIN_USERNAME }}
+        API_ADMIN_PASSWORD: ${{ secrets.API_ADMIN_PASSWORD }}
       run: |
         pytest tests/test_product_search.py -v --tb=short
       continue-on-error: true
     
     - name: Run API Tests
+      env:
+        TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
+        TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+        API_ADMIN_USERNAME: ${{ secrets.API_ADMIN_USERNAME }}
+        API_ADMIN_PASSWORD: ${{ secrets.API_ADMIN_PASSWORD }}
       run: |
         pytest tests/test_api.py -v --tb=short
       continue-on-error: true
     
     - name: Run Visual Regression Tests
+      env:
+        TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
+        TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+        API_ADMIN_USERNAME: ${{ secrets.API_ADMIN_USERNAME }}
+        API_ADMIN_PASSWORD: ${{ secrets.API_ADMIN_PASSWORD }}
       run: |
         pytest tests/test_visual_regression.py -v --tb=short
       continue-on-error: true
