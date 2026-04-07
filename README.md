@@ -3,6 +3,11 @@
 
 A comprehensive test automation framework for the BookCart e-commerce application using Playwright and Python. This framework covers critical paths including user authentication, product search, shopping cart management, and checkout processes, with support for cross-browser testing, API testing, and visual regression testing.
 
+## Quick Links
+
+- 🌐 **Live Application**: [BookCart on Azure](https://bookcart.azurewebsites.net)
+- 📚 **Test Framework**: This repository contains comprehensive automated tests for BookCart
+
 ## Features
 
 🎯 **Critical Path Coverage**
