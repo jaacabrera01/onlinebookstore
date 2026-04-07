@@ -5,7 +5,7 @@ A comprehensive test automation framework for the BookCart e-commerce applicatio
 
 ## Quick Links
 
-- 🌐 **Live Application**: [BookCart on Azure](https://bookcart.azurewebsites.net)
+- 🌐 **Live Application**: https://bookcart.azurewebsites.net
 - 📚 **Test Framework**: This repository contains comprehensive automated tests for BookCart
 
 ## Features
