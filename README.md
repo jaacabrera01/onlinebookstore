@@ -1,15 +1,14 @@
-Project Base URL
-You should run your tests against the following application:
-URL: https://bookcart.azurewebsites.net/
-
 # BookCart Automation Testing Framework
+
+**Project URL**: https://bookcart.azurewebsites.net/
 
 A comprehensive test automation framework for the BookCart e-commerce application using Playwright and Python. This framework covers critical paths including user authentication, product search, shopping cart management, and checkout processes, with support for cross-browser testing, API testing, and visual regression testing.
 
 ## Quick Links
 
-- 🌐 **Live Application**: https://bookcart.azurewebsites.net
+- 🌐 **Live Application**: [BookCart on Azure](https://bookcart.azurewebsites.net)
 - 📚 **Test Framework**: This repository contains comprehensive automated tests for BookCart
+- 🗺️ **Project Roadmap**: [E2E Test Ecommerce App](https://roadmap.sh/projects/e2e-test-ecommerce-app)
 
 ## Features
 
